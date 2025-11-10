@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚡ N8N Workflow Documentation</title>
+  <title>DigitalToolLabs | Premium Workflow Library</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+
   <style>
-    /* Modern CSS Reset and Base */
+    /* Modern CSS Reset */
     * {
       margin: 0;
       padding: 0;
@@ -15,84 +16,94 @@
     }
 
     :root {
-      --primary: #3b82f6;
-      --primary-dark: #2563eb;
+      /* ⭐ NEW FUTURISTIC COLOR PALETTE */
+      --primary-glow: #8B5CF6; /* Vibrant Purple */
+      --primary-glow-dark: #3B82F6; /* Vibrant Blue */
+      --primary-gradient: linear-gradient(90deg, var(--primary-glow), var(--primary-glow-dark));
       --success: #10b981;
       --warning: #f59e0b;
       --error: #ef4444;
-      --bg: #ffffff;
-      --bg-secondary: #f8fafc;
-      --bg-tertiary: #f1f5f9;
-      --text: #1e293b;
-      --text-secondary: #64748b;
+
+      /* Light Theme (Base) */
+      --bg: #F8FAFC; /* Softer white (Slate 50) */
+      --bg-secondary: #FFFFFF;
+      --bg-tertiary: #F1F5F9;
+      --text: #0F172A; /* Darker text (Slate 900) */
+      --text-secondary: #475569;
       --text-muted: #94a3b8;
       --border: #e2e8f0;
-      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.07);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+      --shadow-glow: 0 0 0 3px rgb(139 92 246 / 0.1);
     }
 
     [data-theme="dark"] {
-      --bg: #0f172a;
-      --bg-secondary: #1e293b;
-      --bg-tertiary: #334155;
-      --text: #f8fafc;
-      --text-secondary: #cbd5e1;
+      /* ⭐ NEW PRO DARK THEME */
+      --bg: #0F172A; /* Deep Navy (Slate 900) */
+      --bg-secondary: #1E293B; /* Lighter Navy (Slate 800) */
+      --bg-tertiary: #334155; /* Muted Navy (Slate 700) */
+      --text: #F1F5F9; /* Bright White/Gray */
+      --text-secondary: #94A3B8; /* Muted Gray */
       --text-muted: #64748b;
       --border: #475569;
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.2), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+      --shadow-glow: 0 0 0 3px rgb(139 92 246 / 0.2);
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      /* ⭐ NEW PRO FONT STACK */
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      transition: all 0.2s ease;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1400px; /* Wider for a pro feel */
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 2rem;
+    }
+    
+    /* ⭐ Utility: Gradient Text */
+    .gradient-text {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     /* Header */
     .header {
       background: var(--bg-secondary);
       border-bottom: 1px solid var(--border);
-      padding: 2rem 0;
+      padding: 2.5rem 0; /* More spacing */
       text-align: center;
     }
 
     .title {
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-size: 2.75rem; /* Larger */
+      font-weight: 800; /* Bolder */
       margin-bottom: 0.5rem;
-      color: var(--primary);
     }
 
     .subtitle {
-      font-size: 1.125rem;
+      font-size: 1.25rem; /* Larger */
       color: var(--text-secondary);
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
 
     .stats {
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
       justify-content: center;
       flex-wrap: wrap;
     }
 
-    .stat {
-      text-align: center;
-      min-width: 100px;
-    }
-
     .stat-number {
       display: block;
-      font-size: 1.875rem;
+      font-size: 2.25rem;
       font-weight: 700;
-      color: var(--primary);
     }
 
     .stat-label {
@@ -110,6 +121,274 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      backdrop-filter: blur(10px); /* Frosted glass effect */
+      background-color: var(--bg-secondary-translucent, var(--bg));
+      /* Fallback for bg */
+      [data-theme="dark"] { --bg-secondary-translucent: rgb(30 41 59 / 0.8); }
+      [data-theme="light"] { --bg-secondary-translucent: rgb(255 255 255 / 0.8); }
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.85rem 1.25rem; /* More padding */
+      border: 1px solid var(--border);
+      border-radius: 0.75rem; /* Modern rounded */
+      background: var(--bg-secondary);
+      color: var(--text);
+      font-size: 1rem;
+      min-width: 300px;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-glow);
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .filter-group select, .filter-group input[type="checkbox"] {
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: var(--bg-secondary);
+      color: var(--text);
+      padding: 0.5rem;
+      transition: all 0.2s ease;
+    }
+    .filter-group select:focus {
+      outline: none;
+      border-color: var(--primary-glow);
+    }
+
+    .theme-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 1.25rem;
+      margin-left: auto;
+      transition: all 0.2s ease;
+    }
+    .theme-toggle:hover {
+      border-color: var(--primary-glow);
+    }
+
+    /* Workflow Grid */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ⭐ NEW "PRO" WORKFLOW CARD */
+    .workflow-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 1rem; /* Softer, modern radius */
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease; /* Slower, smoother transition */
+      cursor: pointer;
+      position: relative;
+      overflow: hidden; /* For glow effect */
+    }
+
+    .workflow-card:hover {
+      transform: translateY(-5px) scale(1.02); /* Pop effect */
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-glow); /* Glow effect */
+    }
+
+    .status-active { background: var(--success); }
+    .status-inactive { background: var(--text-muted); }
+    .complexity-low { background: var(--success); }
+    .complexity-medium { background: var(--warning); }
+    .complexity-high { background: var(--error); }
+
+    .trigger-badge {
+      background: var(--primary-gradient); /* ⭐ Use gradient */
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .category-badge {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      border: 1px solid var(--border);
+      font-weight: 500;
+    }
+
+    .workflow-title {
+      font-size: 1.35rem; /* Larger */
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    
+    .integration-tag {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      padding: 0.25rem 0.6rem; /* Slightly larger */
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Buttons */
+    .action-btn, .load-more-btn, .retry-btn {
+      padding: 0.75rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: var(--bg-secondary);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600; /* Bolder */
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover, .load-more-btn:hover, .retry-btn:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--text-secondary);
+    }
+
+    .action-btn.primary, .load-more-btn, .retry-btn {
+      background: var(--primary-gradient); /* ⭐ Use gradient */
+      color: white;
+      border: none;
+      box-shadow: 0 4px 10px rgb(139 92 246 / 0.2);
+    }
+
+    .action-btn.primary:hover, .load-more-btn:hover, .retry-btn:hover {
+      background: var(--primary-gradient);
+      border: none;
+      transform: scale(1.03);
+      box-shadow: 0 7px 15px rgb(139 92 246 / 0.3);
+    }
+
+    /* Modal */
+    .modal {
+      background: rgba(0, 0, 0, 0.7); /* Darker backdrop */
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: var(--bg-secondary);
+      border-radius: 1rem; /* Modern radius */
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-size: 1.5rem; /* Larger */
+      font-weight: 600;
+    }
+    
+    .modal-close {
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+    }
+    .modal-close:hover {
+      color: var(--error);
+      transform: scale(1.1);
+    }
+
+    .json-viewer {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace; /* Pro code font */
+      font-size: 0.875rem;
+      overflow-x: auto;
+      max-height: 400px;
+      white-space: pre-wrap;
+    }
+    
+    .copy-btn {
+      background: var(--bg-tertiary);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+    }
+    .copy-btn:hover {
+      background: var(--primary-gradient);
+      color: white;
+      border-color: transparent;
+    }
+    .copy-btn.copied { background: var(--success); color: white; }
+
+    /* Diagram Viewer */
+    .diagram-container {
+      background: var(--bg); /* Match main bg */
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      text-align: center;
+      overflow: hidden;
+      height: 500px;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+    }
+    
+    .zoom-btn {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+    }
+    .zoom-btn:hover {
+      background: var(--primary-gradient);
+      color: white;
+      border-color: transparent;
+    }
+
+    /* Mermaid Dark Theme Overrides */
+    [data-theme="dark"] .mermaid {
+      background-color: var(--bg) !important;
+    }
+    [data-theme="dark"] .mermaid text,
+    [data-theme="dark"] .mermaid .label {
+      fill: var(--text) !important;
+      color: var(--text) !importa
+    }
+    [data-theme="dark"] .mermaid .node rect,
+    [data-theme="dark"] .mermaid .node polygon {
+      fill: var(--bg-secondary) !important;
+      stroke: var(--border) !important;
+    }
+    [data-theme="dark"] .mermaid .edgePath path {
+      stroke: var(--border) !important;
+    }
+    [data-theme="dark"] .mermaid .arrowheadPath {
+      fill: var(--border) !important;
+    }
+
+    /* Base styles from original */
+    body {
+      transition: all 0.2s ease;
+    }
+
+    .container {
+      margin: 0 auto;
     }
 
     .search-section {
@@ -117,23 +396,6 @@
       align-items: center;
       gap: 1rem;
       margin-bottom: 1rem;
-    }
-
-    .search-input {
-      flex: 1;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 1rem;
-      min-width: 300px;
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
     }
 
     .filter-section {
@@ -155,37 +417,16 @@
       color: var(--text-secondary);
     }
 
-    .filter-group select {
-      padding: 0.5rem;
-      border: 1px solid var(--border);
-      border-radius: 0.375rem;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.875rem;
-    }
-
-    .theme-toggle {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-left: auto;
-    }
-
     .results-info {
       margin-top: 1rem;
       font-size: 0.875rem;
       color: var(--text-secondary);
     }
 
-    /* Main Content */
     .main {
       padding: 2rem 0;
     }
 
-    /* States */
     .state {
       text-align: center;
       padding: 4rem 2rem;
@@ -205,45 +446,6 @@
     .state p {
       color: var(--text-secondary);
       margin-bottom: 2rem;
-    }
-
-    .retry-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .retry-btn:hover {
-      background: var(--primary-dark);
-    }
-
-    /* Workflow Grid */
-    .workflow-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .workflow-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
-      transition: all 0.2s ease;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .workflow-card:hover {
-      box-shadow: var(--shadow-lg);
-      border-color: var(--primary);
-      transform: translateY(-2px);
     }
 
     .workflow-header {
@@ -267,59 +469,12 @@
       border-radius: 50%;
     }
 
-    .status-active {
-      background: var(--success);
-    }
-
-    .status-inactive {
-      background: var(--text-muted);
-    }
-
     .complexity-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
     }
-
-    .complexity-low {
-      background: var(--success);
-    }
-
-    .complexity-medium {
-      background: var(--warning);
-    }
-
-    .complexity-high {
-      background: var(--error);
-    }
-
-    .trigger-badge {
-      background: var(--primary);
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.375rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    .category-badge {
-      background: var(--bg-tertiary);
-      color: var(--text-secondary);
-      padding: 0.125rem 0.375rem;
-      border-radius: 0.25rem;
-      font-size: 0.75rem;
-      border: 1px solid var(--border);
-      font-weight: 500;
-    }
-
-    .workflow-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text);
-      line-height: 1.4;
-    }
-
+    
     .workflow-description {
       color: var(--text-secondary);
       margin-bottom: 1rem;
@@ -343,15 +498,6 @@
       gap: 0.25rem;
     }
 
-    .integration-tag {
-      background: var(--bg-tertiary);
-      color: var(--text-secondary);
-      padding: 0.125rem 0.5rem;
-      border-radius: 0.25rem;
-      font-size: 0.75rem;
-      border: 1px solid var(--border);
-    }
-
     .workflow-actions {
       display: flex;
       gap: 0.5rem;
@@ -360,102 +506,24 @@
       border-top: 1px solid var(--border);
     }
 
-    .action-btn {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 0.375rem;
-      background: var(--bg);
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .action-btn:hover {
-      background: var(--bg-tertiary);
-      border-color: var(--primary);
-    }
-
-    .action-btn.primary {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .action-btn.primary:hover {
-      background: var(--primary-dark);
-    }
-
-    /* Load More */
     .load-more {
       text-align: center;
       margin-top: 2rem;
     }
-
-    .load-more-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.75rem 2rem;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .load-more-btn:hover {
-      background: var(--primary-dark);
-    }
-
-    /* Modal */
+    
     .modal {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       padding: 1rem;
     }
-
-    .modal-content {
-      background: var(--bg);
-      border-radius: 0.75rem;
-      max-width: 800px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    .modal-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .modal-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-
-    .modal-close {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 0.25rem;
-      color: var(--text-secondary);
-    }
-
+    
     .modal-body {
       padding: 1.5rem;
     }
@@ -479,58 +547,13 @@
       justify-content: space-between;
       margin-bottom: 0.5rem;
     }
-
-    .copy-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .copy-btn:hover {
-      background: var(--primary-dark);
-    }
-
-    .copy-btn.copied {
-      background: var(--success);
-    }
-
-    .copy-btn.copied:hover {
-      background: var(--success);
-    }
-
-    .json-viewer {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 1rem;
-      font-family: 'Courier New', monospace;
-      font-size: 0.875rem;
-      overflow-x: auto;
-      max-height: 400px;
-      white-space: pre-wrap;
-    }
-
+    
     .hidden {
       display: none !important;
     }
 
-    /* Mermaid diagram styling */
     .mermaid {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 1rem;
       text-align: center;
-      overflow: visible;
-      min-height: 300px;
     }
 
     .mermaid svg {
@@ -538,28 +561,9 @@
       height: auto;
       transition: transform 0.2s ease;
     }
-
-    .diagram-container {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 1rem;
-      text-align: center;
-      overflow: hidden;
-      height: 500px;
-      position: relative;
-      cursor: grab;
-      user-select: none;
-    }
-
+    
     .diagram-container.dragging {
       cursor: grabbing;
-    }
-
-    .diagram-container .mermaid {
-      border: none;
-      background: transparent;
-      padding: 0;
     }
 
     .diagram-controls {
@@ -567,28 +571,17 @@
       align-items: center;
       gap: 0.5rem;
     }
-
+    
     .zoom-btn {
-      background: var(--bg-tertiary);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 0.25rem;
       padding: 0.25rem 0.5rem;
       font-size: 0.75rem;
       cursor: pointer;
-      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 0.25rem;
       min-width: 32px;
       height: 32px;
       justify-content: center;
-    }
-
-    .zoom-btn:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
     }
 
     .zoom-btn:active {
@@ -603,12 +596,16 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+      
       .title {
         font-size: 2rem;
       }
 
       .stats {
-        gap: 1rem;
+        gap: 1.5rem;
       }
 
       .search-section,
@@ -639,35 +636,32 @@
   </style>
 </head>
 
-<body>
-  <div id="app">
-    <!-- Header -->
+<body data-theme="dark"> <div id="app">
     <header class="header">
       <div class="container">
-        <h1 class="title">⚡ N8N Workflow Documentation</h1>
-        <p class="subtitle">Lightning-fast workflow browser with instant search</p>
+        <h1 class="title gradient-text">DigitalToolLabs Workflow Library</h1>
+        <p class="subtitle">Premium, battle-tested automations for web professionals.</p>
         <div class="stats">
           <div class="stat">
-            <span class="stat-number" id="totalCount">0</span>
+            <span class="stat-number gradient-text" id="totalCount">0</span>
             <span class="stat-label">Total</span>
           </div>
           <div class="stat">
-            <span class="stat-number" id="activeCount">0</span>
+            <span class="stat-number gradient-text" id="activeCount">0</span>
             <span class="stat-label">Active</span>
           </div>
           <div class="stat">
-            <span class="stat-number" id="nodeCount">0</span>
+            <span class="stat-number gradient-text" id="nodeCount">0</span>
             <span class="stat-label">Total Nodes</span>
           </div>
           <div class="stat">
-            <span class="stat-number" id="integrationCount">0</span>
+            <span class="stat-number gradient-text" id="integrationCount">0</span>
             <span class="stat-label">Integrations</span>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Controls -->
     <div class="controls">
       <div class="container">
         <div class="search-section">
@@ -701,18 +695,17 @@
             <label for="categoryFilter">Category:</label>
             <select id="categoryFilter">
               <option value="all">All Categories</option>
-              <!-- Categories will be populated dynamically -->
-            </select>
+              </select>
           </div>
 
           <div class="filter-group">
-            <label>
-              <input type="checkbox" id="activeOnly">
+            <label style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="activeOnly" style="height: 16px; width: 16px;">
               Active only
             </label>
           </div>
 
-          <button id="themeToggle" class="theme-toggle">🌙</button>
+          <button id="themeToggle" class="theme-toggle">☀️</button>
         </div>
 
         <div class="results-info">
@@ -721,17 +714,14 @@
       </div>
     </div>
 
-    <!-- Main Content -->
     <main class="main">
       <div class="container">
-        <!-- Loading State -->
         <div id="loadingState" class="state loading">
           <div class="icon">⚡</div>
-          <h3>Loading workflows...</h3>
-          <p>Please wait while we fetch your workflow data</p>
+          <h3>Loading Workflows...</h3>
+          <p>Please wait while we fetch the premium automation library.</p>
         </div>
 
-        <!-- Error State -->
         <div id="errorState" class="state error hidden">
           <div class="icon">❌</div>
           <h3>Error Loading Workflows</h3>
@@ -739,26 +729,21 @@
           <button id="retryBtn" class="retry-btn">Retry</button>
         </div>
 
-        <!-- No Results State -->
         <div id="noResultsState" class="state hidden">
           <div class="icon">🔍</div>
           <h3>No workflows found</h3>
           <p>Try adjusting your search terms or filters</p>
         </div>
 
-        <!-- Workflows Grid -->
         <div id="workflowGrid" class="workflow-grid hidden">
-          <!-- Workflow cards will be inserted here -->
-        </div>
+          </div>
 
-        <!-- Load More -->
         <div id="loadMoreContainer" class="load-more hidden">
           <button id="loadMoreBtn" class="load-more-btn">Load More</button>
         </div>
       </div>
     </main>
 
-    <!-- Workflow Detail Modal -->
     <div id="workflowModal" class="modal hidden">
       <div class="modal-content">
         <div class="modal-header">
@@ -909,14 +894,14 @@
         if (typeof mermaid !== 'undefined') {
           mermaid.initialize({
             startOnLoad: false,
-            theme: 'base',
+            theme: 'base', // We control dark/light with CSS overrides
             themeVariables: {
-              primaryColor: '#3b82f6',
-              primaryTextColor: '#1e293b',
-              primaryBorderColor: '#2563eb',
-              lineColor: '#64748b',
-              secondaryColor: '#f1f5f9',
-              tertiaryColor: '#f8fafc'
+              primaryColor: '#8B5CF6',
+              primaryTextColor: '#FFFFFF',
+              primaryBorderColor: '#8B5CF6',
+              lineColor: '#475569',
+              secondaryColor: '#1E293B',
+              tertiaryColor: '#334155'
             }
           });
         }
@@ -943,9 +928,6 @@
 
         this.elements.categoryFilter.addEventListener('change', (e) => {
           const selectedCategory = e.target.value;
-          console.log(`Category filter changed to: ${selectedCategory}`);
-          console.log('Current category map size:', this.state.categoryMap.size);
-          
           this.state.filters.category = selectedCategory;
           this.state.currentPage = 1;
           this.resetAndSearch();
@@ -1019,7 +1001,6 @@
             this.closeModal();
           }
           
-          // Zoom shortcuts when diagram is visible
           if (!this.elements.diagramSection.classList.contains('hidden')) {
             if (e.key === '+' || e.key === '=') {
               e.preventDefault();
@@ -1027,7 +1008,7 @@
             } else if (e.key === '-') {
               e.preventDefault();
               this.zoomDiagram(0.8);
-            } else if (e.key === '0' && e.ctrlKey) {
+            } else if (e.key === '0' && (e.ctrlKey || e.metaKey)) {
               e.preventDefault();
               this.resetDiagramZoom();
             }
@@ -1036,8 +1017,10 @@
       }
 
       setupTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        // ⭐ Set dark theme as default if no preference is saved
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
+        document.body.setAttribute('data-theme', savedTheme); // Also set on body
         this.updateThemeToggle(savedTheme);
       }
 
@@ -1045,6 +1028,7 @@
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
+        document.body.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         this.updateThemeToggle(newTheme);
       }
@@ -1081,22 +1065,15 @@
         this.showState('loading');
 
         try {
-          // Load categories first, then stats and workflows
-          console.log('Loading categories...');
           await this.loadCategories();
-          
-          console.log('Categories loaded, populating filter...');
           this.populateCategoryFilter();
           
-          // Load stats and workflows in parallel
-          console.log('Loading stats and workflows...');
           const [stats] = await Promise.all([
             this.apiCall('/stats'),
             this.loadWorkflows(true)
           ]);
 
           this.updateStatsDisplay(stats);
-          console.log('Initial data loading complete');
         } catch (error) {
           console.error('Error during initial data loading:', error);
           this.showError('Failed to load data: ' + error.message);
@@ -1105,18 +1082,13 @@
 
       async loadCategories() {
         try {
-          console.log('Loading categories from API...');
-          
-          // Load categories and mappings in parallel from API
           const [categoriesResponse, mappingsResponse] = await Promise.all([
             this.apiCall('/categories'),
             this.apiCall('/category-mappings')
           ]);
           
-          // Set categories from API
           this.state.categories = categoriesResponse.categories || ['Uncategorized'];
           
-          // Build category map from API mappings
           const categoryMap = new Map();
           const mappings = mappingsResponse.mappings || {};
           
@@ -1125,50 +1097,27 @@
           });
           
           this.state.categoryMap = categoryMap;
-          
-          console.log(`Successfully loaded ${this.state.categories.length} categories from API:`, this.state.categories);
-          console.log(`Loaded ${categoryMap.size} category mappings from API`);
-          
-          return { categories: this.state.categories, mappings: mappings };
         } catch (error) {
           console.error('Failed to load categories from API:', error);
-          // Set default categories if loading fails
           this.state.categories = ['Uncategorized'];
           this.state.categoryMap = new Map();
-          return { categories: this.state.categories, mappings: {} };
         }
       }
 
       populateCategoryFilter() {
         const select = this.elements.categoryFilter;
+        if (!select) return;
         
-        if (!select) {
-          console.error('Category filter element not found');
-          return;
-        }
-        
-        console.log('Populating category filter with:', this.state.categories);
-        
-        // Clear existing options except "All Categories"
         while (select.children.length > 1) {
           select.removeChild(select.lastChild);
         }
         
-        if (this.state.categories.length === 0) {
-          console.warn('No categories available to populate filter');
-          return;
-        }
-        
-        // Add categories in alphabetical order
         this.state.categories.forEach(category => {
           const option = document.createElement('option');
           option.value = category;
           option.textContent = category;
           select.appendChild(option);
-          console.log(`Added category option: ${category}`);
         });
-        
-        console.log(`Category filter populated with ${select.options.length - 1} categories`);
       }
 
       async loadWorkflows(reset = false) {
@@ -1180,7 +1129,6 @@
         this.state.isLoading = true;
 
         try {
-          // If category filtering is active, we need to load all workflows to filter properly
           const needsAllWorkflows = this.state.filters.category !== 'all' && reset;
           
           let allWorkflows = [];
@@ -1188,35 +1136,17 @@
           let totalPages = 1;
           
           if (needsAllWorkflows) {
-            // Load all workflows in batches for category filtering
-            console.log('Loading all workflows for category filtering...');
             allWorkflows = await this.loadAllWorkflowsForCategoryFiltering();
             
-            // Apply client-side category filtering
-            console.log(`Filtering ${allWorkflows.length} workflows for category: ${this.state.filters.category}`);
-            console.log('Category map size:', this.state.categoryMap.size);
-            
-            let matchCount = 0;
             const filteredWorkflows = allWorkflows.filter(workflow => {
               const workflowCategory = this.getWorkflowCategory(workflow.filename);
-              const matches = workflowCategory === this.state.filters.category;
-              
-              // Debug: log first few matches/non-matches
-              if (matchCount < 5 || (!matches && matchCount < 3)) {
-                console.log(`${workflow.filename}: ${workflowCategory} ${matches ? '===' : '!=='} ${this.state.filters.category}`);
-              }
-              
-              if (matches) matchCount++;
-              
-              return matches;
+              return workflowCategory === this.state.filters.category;
             });
             
-            console.log(`Filtered from ${allWorkflows.length} to ${filteredWorkflows.length} workflows`);
             allWorkflows = filteredWorkflows;
             totalCount = filteredWorkflows.length;
-            totalPages = 1; // All results loaded, no pagination needed
+            totalPages = 1; 
           } else {
-            // Normal pagination
             const params = new URLSearchParams({
               q: this.state.searchQuery,
               trigger: this.state.filters.trigger,
@@ -1252,7 +1182,7 @@
       async loadAllWorkflowsForCategoryFiltering() {
         const allWorkflows = [];
         let currentPage = 1;
-        const maxPerPage = 100; // API limit
+        const maxPerPage = 100; 
         
         while (true) {
           const params = new URLSearchParams({
@@ -1267,28 +1197,22 @@
           const response = await this.apiCall(`/workflows?${params}`);
           allWorkflows.push(...response.workflows);
           
-          console.log(`Loaded page ${currentPage}/${response.pages} (${response.workflows.length} workflows)`);
-          
           if (currentPage >= response.pages) {
             break;
           }
           
           currentPage++;
         }
-        
-        console.log(`Loaded total of ${allWorkflows.length} workflows for filtering`);
         return allWorkflows;
       }
 
       getWorkflowCategory(filename) {
         const category = this.state.categoryMap.get(filename);
-        const result = category && category.trim() ? category : 'Uncategorized';
-        return result;
+        return category && category.trim() ? category : 'Uncategorized';
       }
 
       async loadMoreWorkflows() {
         if (this.state.currentPage >= this.state.totalPages) return;
-
         this.state.currentPage++;
         await this.loadWorkflows(false);
       }
@@ -1338,7 +1262,6 @@
         const html = this.state.workflows.map(workflow => this.createWorkflowCard(workflow)).join('');
         this.elements.workflowGrid.innerHTML = html;
 
-        // Add click handlers to cards
         this.elements.workflowGrid.querySelectorAll('.workflow-card').forEach((card, index) => {
           card.addEventListener('click', () => {
             this.openWorkflowDetail(this.state.workflows[index]);
@@ -1360,31 +1283,31 @@
           : '';
 
         return `
-                    <div class="workflow-card" data-filename="${workflow.filename}">
-                        <div class="workflow-header">
-                            <div class="workflow-meta">
-                                <div class="status-dot ${statusClass}"></div>
-                                <div class="complexity-dot ${complexityClass}"></div>
-                                <span>${workflow.node_count} nodes</span>
-                                <span class="category-badge">${this.escapeHtml(category)}</span>
-                            </div>
-                            <span class="trigger-badge">${this.escapeHtml(workflow.trigger_type)}</span>
-                        </div>
-                        
-                        <h3 class="workflow-title">${this.escapeHtml(workflow.name)}</h3>
-                        <p class="workflow-description">${this.escapeHtml(workflow.description)}</p>
-                        
-                        ${workflow.integrations.length > 0 ? `
-                            <div class="workflow-integrations">
-                                <h4 class="integrations-title">Integrations (${workflow.integrations.length})</h4>
-                                <div class="integrations-list">
-                                    ${integrations}
-                                    ${moreIntegrations}
-                                </div>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
+          <div class="workflow-card" data-filename="${workflow.filename}">
+            <div class="workflow-header">
+              <div class="workflow-meta">
+                <div class="status-dot ${statusClass}"></div>
+                <div class="complexity-dot ${complexityClass}"></div>
+                <span>${workflow.node_count} nodes</span>
+                <span class="category-badge">${this.escapeHtml(category)}</span>
+              </div>
+              <span class="trigger-badge">${this.escapeHtml(workflow.trigger_type)}</span>
+            </div>
+            
+            <h3 class="workflow-title">${this.escapeHtml(workflow.name)}</h3>
+            <p class="workflow-description">${this.escapeHtml(workflow.description)}</p>
+            
+            ${workflow.integrations.length > 0 ? `
+              <div class="workflow-integrations">
+                <h4 class="integrations-title">Integrations (${workflow.integrations.length})</h4>
+                <div class="integrations-list">
+                  ${integrations}
+                  ${moreIntegrations}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
       }
 
       async openWorkflowDetail(workflow) {
@@ -1392,19 +1315,17 @@
         this.elements.modalTitle.textContent = workflow.name;
         this.elements.modalDescription.textContent = workflow.description;
 
-        // Update stats
         const category = this.getWorkflowCategory(workflow.filename);
         this.elements.modalStats.innerHTML = `
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
-                        <div><strong>Status:</strong> ${workflow.active ? 'Active' : 'Inactive'}</div>
-                        <div><strong>Trigger:</strong> ${workflow.trigger_type}</div>
-                        <div><strong>Complexity:</strong> ${workflow.complexity}</div>
-                        <div><strong>Nodes:</strong> ${workflow.node_count}</div>
-                        <div><strong>Category:</strong> ${this.escapeHtml(category)}</div>
-                    </div>
-                `;
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+            <div><strong>Status:</strong> ${workflow.active ? 'Active' : 'Inactive'}</div>
+            <div><strong>Trigger:</strong> ${workflow.trigger_type}</div>
+            <div><strong>Complexity:</strong> ${workflow.complexity}</div>
+            <div><strong>Nodes:</strong> ${workflow.node_count}</div>
+            <div><strong>Category:</strong> ${this.escapeHtml(category)}</div>
+          </div>
+        `;
 
-        // Update integrations
         if (workflow.integrations.length > 0) {
           this.elements.modalIntegrations.innerHTML = workflow.integrations
             .map(integration => `<span class="integration-tag">${this.escapeHtml(integration)}</span>`)
@@ -1413,14 +1334,11 @@
           this.elements.modalIntegrations.textContent = 'No integrations found';
         }
 
-        // Set download link
         this.elements.downloadBtn.href = `/api/workflows/${workflow.filename}/download`;
         this.elements.downloadBtn.download = workflow.filename;
 
-        // Reset view states
         this.elements.jsonSection.classList.add('hidden');
         this.elements.diagramSection.classList.add('hidden');
-
         this.elements.workflowModal.classList.remove('hidden');
       }
 
@@ -1433,21 +1351,15 @@
         this.diagramZoom = 1;
         this.diagramPan = { x: 0, y: 0 };
         this.isDragging = false;
-
-        // Reset button states
         this.elements.viewJsonBtn.textContent = '📄 View JSON';
         this.elements.viewDiagramBtn.textContent = '📊 View Diagram';
-
-        // Reset copy button states
         this.resetCopyButton('copyJsonBtn');
         this.resetCopyButton('copyDiagramBtn');
       }
 
       async toggleJsonView() {
         if (!this.currentWorkflow) return;
-
         const isVisible = !this.elements.jsonSection.classList.contains('hidden');
-
         if (isVisible) {
           this.elements.jsonSection.classList.add('hidden');
           this.elements.viewJsonBtn.textContent = '📄 View JSON';
@@ -1456,7 +1368,6 @@
             this.elements.jsonViewer.textContent = 'Loading...';
             this.elements.jsonSection.classList.remove('hidden');
             this.elements.viewJsonBtn.textContent = '📄 Hide JSON';
-
             const data = await this.apiCall(`/workflows/${this.currentWorkflow.filename}`);
             const jsonString = JSON.stringify(data.raw_json, null, 2);
             this.currentJsonData = jsonString;
@@ -1470,9 +1381,7 @@
 
       async toggleDiagramView() {
         if (!this.currentWorkflow) return;
-
         const isVisible = !this.elements.diagramSection.classList.contains('hidden');
-
         if (isVisible) {
           this.elements.diagramSection.classList.add('hidden');
           this.elements.viewDiagramBtn.textContent = '📊 View Diagram';
@@ -1481,20 +1390,11 @@
             this.elements.diagramViewer.textContent = 'Loading diagram...';
             this.elements.diagramSection.classList.remove('hidden');
             this.elements.viewDiagramBtn.textContent = '📊 Hide Diagram';
-
             const data = await this.apiCall(`/workflows/${this.currentWorkflow.filename}/diagram`);
             this.currentDiagramData = data.diagram;
-
-            // Create a Mermaid diagram that will be rendered
-            this.elements.diagramViewer.innerHTML = `
-                            <pre class="mermaid">${data.diagram}</pre>
-                        `;
-
-            // Re-initialize Mermaid for the new diagram
+            this.elements.diagramViewer.innerHTML = `<pre class="mermaid">${data.diagram}</pre>`;
             if (typeof mermaid !== 'undefined') {
               mermaid.init(undefined, this.elements.diagramViewer.querySelector('.mermaid'));
-              
-              // Store reference to SVG and reset zoom
               setTimeout(() => {
                 this.diagramSvg = this.elements.diagramViewer.querySelector('.mermaid svg');
                 this.resetDiagramZoom();
@@ -1510,10 +1410,8 @@
 
       zoomDiagram(factor) {
         if (!this.diagramSvg) return;
-        
         this.diagramZoom *= factor;
-        this.diagramZoom = Math.max(0.1, Math.min(10, this.diagramZoom)); // Limit zoom between 10% and 1000%
-        
+        this.diagramZoom = Math.max(0.1, Math.min(10, this.diagramZoom));
         this.applyDiagramTransform();
       }
 
@@ -1525,7 +1423,6 @@
 
       applyDiagramTransform() {
         if (!this.diagramSvg) return;
-        
         const transform = `scale(${this.diagramZoom}) translate(${this.diagramPan.x}px, ${this.diagramPan.y}px)`;
         this.diagramSvg.style.transform = transform;
         this.diagramSvg.style.transformOrigin = 'center center';
@@ -1534,26 +1431,19 @@
       setupDiagramPanning() {
         if (!this.elements.diagramContainer) return;
 
-        // Mouse events
         this.elements.diagramContainer.addEventListener('mousedown', (e) => {
-          if (e.button === 0) { // Left mouse button
+          if (e.button === 0) {
             this.startDragging(e.clientX, e.clientY);
             e.preventDefault();
           }
         });
-
         document.addEventListener('mousemove', (e) => {
           if (this.isDragging) {
             this.handleDragging(e.clientX, e.clientY);
             e.preventDefault();
           }
         });
-
-        document.addEventListener('mouseup', () => {
-          this.stopDragging();
-        });
-
-        // Touch events for mobile
+        document.addEventListener('mouseup', () => { this.stopDragging(); });
         this.elements.diagramContainer.addEventListener('touchstart', (e) => {
           if (e.touches.length === 1) {
             const touch = e.touches[0];
@@ -1561,7 +1451,6 @@
             e.preventDefault();
           }
         });
-
         document.addEventListener('touchmove', (e) => {
           if (this.isDragging && e.touches.length === 1) {
             const touch = e.touches[0];
@@ -1569,17 +1458,8 @@
             e.preventDefault();
           }
         });
-
-        document.addEventListener('touchend', () => {
-          this.stopDragging();
-        });
-
-        // Prevent context menu on right click
-        this.elements.diagramContainer.addEventListener('contextmenu', (e) => {
-          e.preventDefault();
-        });
-
-        // Mouse wheel zoom
+        document.addEventListener('touchend', () => { this.stopDragging(); });
+        this.elements.diagramContainer.addEventListener('contextmenu', (e) => { e.preventDefault(); });
         this.elements.diagramContainer.addEventListener('wheel', (e) => {
           e.preventDefault();
           const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
@@ -1595,14 +1475,10 @@
 
       handleDragging(x, y) {
         if (!this.isDragging) return;
-
         const deltaX = x - this.lastMousePos.x;
         const deltaY = y - this.lastMousePos.y;
-
-        // Apply pan delta scaled by zoom level (inverse relationship)
         this.diagramPan.x += deltaX / this.diagramZoom;
         this.diagramPan.y += deltaY / this.diagramZoom;
-
         this.lastMousePos = { x, y };
         this.applyDiagramTransform();
       }
@@ -1610,9 +1486,9 @@
       stopDragging() {
         this.isDragging = false;
         this.elements.diagramContainer.classList.remove('dragging');
-      }      updateLoadMoreButton() {
+      }
+      updateLoadMoreButton() {
         const hasMore = this.state.currentPage < this.state.totalPages;
-
         if (hasMore && this.state.workflows.length > 0) {
           this.elements.loadMoreContainer.classList.remove('hidden');
         } else {
@@ -1621,13 +1497,11 @@
       }
 
       showState(state) {
-        // Hide all states
         this.elements.loadingState.classList.add('hidden');
         this.elements.errorState.classList.add('hidden');
         this.elements.noResultsState.classList.add('hidden');
         this.elements.workflowGrid.classList.add('hidden');
 
-        // Show the requested state
         switch (state) {
           case 'loading':
             this.elements.loadingState.classList.remove('hidden');
@@ -1650,22 +1524,18 @@
       }
 
       escapeHtml(text) {
+        if (text === null || text === undefined) return '';
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
       }
 
       async copyToClipboard(text, buttonId) {
-        if (!text) {
-          console.warn('No content to copy');
-          return;
-        }
-
+        if (!text) return;
         try {
           await navigator.clipboard.writeText(text);
           this.showCopySuccess(buttonId);
         } catch (error) {
-          // Fallback for older browsers
           this.fallbackCopyToClipboard(text, buttonId);
         }
       }
@@ -1679,7 +1549,6 @@
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-
         try {
           document.execCommand('copy');
           this.showCopySuccess(buttonId);
@@ -1693,11 +1562,9 @@
       showCopySuccess(buttonId) {
         const button = document.getElementById(buttonId);
         if (!button) return;
-
         const originalText = button.innerHTML;
         button.innerHTML = '✅ Copied!';
         button.classList.add('copied');
-
         setTimeout(() => {
           button.innerHTML = originalText;
           button.classList.remove('copied');
@@ -1707,13 +1574,11 @@
       resetCopyButton(buttonId) {
         const button = document.getElementById(buttonId);
         if (!button) return;
-
         button.innerHTML = '📋 Copy';
         button.classList.remove('copied');
       }
     }
 
-    // Initialize the app
     document.addEventListener('DOMContentLoaded', () => {
       window.workflowApp = new WorkflowApp();
     });

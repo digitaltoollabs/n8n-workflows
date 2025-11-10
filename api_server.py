@@ -516,7 +516,7 @@ def generate_mermaid_diagram(nodes: List[Dict], connections: Dict) -> str:
     # Format the final mermaid diagram code
     return "\n".join(mermaid_code)
 
-@app.post("/api/reindex")
+@app.get("/api/reindex")
 async def reindex_workflows(
     background_tasks: BackgroundTasks,
     request: Request,

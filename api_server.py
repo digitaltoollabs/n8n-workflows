@@ -41,6 +41,10 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 # For local development, you can use localhost
 # For production, replace with your actual domain
 ALLOWED_ORIGINS = [
+    # ⬇️ *** Your Hostinger Domain is Added *** ⬇️
+    "https://digitaltoollabs.com",
+    # ⬆️ *** Your Hostinger Domain is Added *** ⬆️
+    
     "http://localhost:3000",
     "http://localhost:8000",
     "http://localhost:8080",
@@ -323,7 +327,7 @@ async def get_workflow_detail(filename: str, request: Request):
 
         if not matching_file:
             print(f"Warning: File {filename} not found in workflows directory")
-            raise HTTPException(status_code=404, detail=f"Workflow file '{filename}' not found on filesystem")
+            raise HTTPException(status_code=4404, detail=f"Workflow file '{filename}' not found on filesystem")
 
         with open(matching_file, 'r', encoding='utf-8') as f:
             raw_json = json.load(f)
@@ -516,7 +520,7 @@ def generate_mermaid_diagram(nodes: List[Dict], connections: Dict) -> str:
     # Format the final mermaid diagram code
     return "\n".join(mermaid_code)
 
-@app.get("/api/reindex")
+@app.post("/api/reindex")
 async def reindex_workflows(
     background_tasks: BackgroundTasks,
     request: Request,

@@ -41,15 +41,17 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 # For local development, you can use localhost
 # For production, replace with your actual domain
 ALLOWED_ORIGINS = [
-    # ⬇️ *** Your Hostinger Domain is Added *** ⬇️
+    # ⬇️ *** Your Hostinger Domains are Added *** ⬇️
     "https://digitaltoollabs.com",
-    # ⬆️ *** Your Hostinger Domain is Added *** ⬆️
+    "https://www.digitaltoollabs.com",
+    # ⬆️ *** Your Hostinger Domains are Added *** ⬆️
     
     "http://localhost:3000",
     "http://localhost:8000",
     "http://localhost:8080",
     "https://zie619.github.io",  # GitHub Pages
     "https://n8n-workflows-1-xxgm.onrender.com",  # Community deployment
+    "https://n8n-workflows-inf6.onrender.com", # Your other app
 ]
 
 app.add_middleware(
@@ -132,19 +134,37 @@ def validate_filename(filename: str) -> bool:
 
     return True
 
-# Startup function to verify database
+#
+# --- THIS IS THE CRITICAL FIX ---
+#
+# Startup function to verify database AND auto-index if empty
 @app.on_event("startup")
 async def startup_event():
-    """Verify database connectivity on startup."""
+    """Verify database connectivity and index files on startup if empty."""
     try:
         stats = db.get_stats()
         if stats['total'] == 0:
-            print("⚠️  Warning: No workflows found in database. Run indexing first.")
+            print("⚠️  Warning: No workflows found in database. Running indexing now...")
+            try:
+                # This is the trigger you were missing
+                indexing_stats = db.index_all_workflows(force_reindex=True)
+                print(f"✅ Indexing complete: {indexing_stats.get('processed', 0)} workflows added.")
+            except Exception as index_e:
+                print(f"❌ Error during initial indexing: {index_e}")
         else:
             print(f"✅ Database connected: {stats['total']} workflows indexed")
     except Exception as e:
-        print(f"❌ Database connection failed: {e}")
-        raise
+        # This handles the very first run where the DB might not even exist
+        print(f"Database not fully initialized or error: {e}. Attempting initial indexing...")
+        try:
+            indexing_stats = db.index_all_workflows(force_reindex=True)
+            print(f"✅ Initial indexing complete: {indexing_stats.get('processed', 0)} workflows added.")
+        except Exception as index_e:
+            print(f"❌ Critical error during initial indexing: {index_e}")
+#
+# --- END OF FIX ---
+#
+
 
 # Response models
 class WorkflowSummary(BaseModel):
@@ -327,7 +347,7 @@ async def get_workflow_detail(filename: str, request: Request):
 
         if not matching_file:
             print(f"Warning: File {filename} not found in workflows directory")
-            raise HTTPException(status_code=4404, detail=f"Workflow file '{filename}' not found on filesystem")
+            raise HTTPException(status_code=404, detail=f"Workflow file '{filename}' not found on filesystem")
 
         with open(matching_file, 'r', encoding='utf-8') as f:
             raw_json = json.load(f)
@@ -671,7 +691,7 @@ async def search_workflows_by_category(
         pages = (total + per_page - 1) // per_page
         
         return SearchResponse(
-            workflows=workflow_summaries,
+            workflows=workflows_summaries,
             total=total,
             page=page,
             per_page=per_page,
@@ -710,23 +730,13 @@ def run_server(host: str = "127.0.0.1", port: int = 8000, reload: bool = False):
     create_static_directory()
     
     # Debug: Check database connectivity
+    # This block is now handled by the startup_event, 
+    # but we can leave a simple check.
     try:
-        stats = db.get_stats()
-        print(f"✅ Database connected: {stats['total']} workflows found")
-        if stats['total'] == 0:
-            print("🔄 Database is empty. Indexing workflows...")
-            db.index_all_workflows()
-            stats = db.get_stats()
+        db.get_stats()
+        print("✅ Database connection verified.")
     except Exception as e:
-        print(f"❌ Database error: {e}")
-        print("🔄 Attempting to create and index database...")
-        try:
-            db.index_all_workflows()
-            stats = db.get_stats()
-            print(f"✅ Database created: {stats['total']} workflows indexed")
-        except Exception as e2:
-            print(f"❌ Failed to create database: {e2}")
-            stats = {'total': 0}
+        print(f"❌ Database connection failed on run_server: {e}")
     
     # Debug: Check static files
     static_path = Path("static")
@@ -737,7 +747,6 @@ def run_server(host: str = "127.0.0.1", port: int = 8000, reload: bool = False):
         print(f"❌ Static directory not found at: {static_path.absolute()}")
     
     print(f"🚀 Starting N8N Workflow Documentation API")
-    print(f"📊 Database contains {stats['total']} workflows")
     print(f"🌐 Server will be available at: http://{host}:{port}")
     print(f"📁 Static files at: http://{host}:{port}/static/")
     
